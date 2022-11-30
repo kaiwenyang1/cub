@@ -1,8 +1,10 @@
 import discord
 import cube
+import mytoken
 intents = discord.Intents.all()
 client = discord.Client(command_prefix=';', intents=intents)
 cub = cube.cube()
+token1 = mytoken.mytoken()
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
@@ -39,5 +41,5 @@ async def on_message(message):
             cub.apply_blind_algs(s)
             await message.channel.send("bruh")
             await message.channel.send(cub.to_string())
- 
-client.run('MTA0MzMwMTk5NDkwOTE1OTQzNA.GKyc92.AGFinx2AZZyP4GPawBIgZvTe6lisuQ6T51jf5Y')
+
+client.run(token1.s)
