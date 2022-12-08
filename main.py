@@ -35,16 +35,16 @@ async def on_message(message):
         elif s == "scramble":
             cub.solve()
             await message.channel.send(cub.get_scramble())
-            await message.channel.send(cub.to_string())
+            # await message.channel.send(cub.to_string())
             await message.channel.send(file=discord.File("3bld.jpg"))
         elif s == "print":
-            await message.channel.send(cub.to_string())
+            await message.channel.send(file=discord.File("3bld.jpg"))
         elif s == "solve":
             cub.solve()
-            await message.channel.send(cub.to_string())
+            await message.channel.send(file=discord.File("3bld.jpg"))
         else:
             cub.apply_blind_algs(s)
-            await message.channel.send("bruh")
-            await message.channel.send(cub.to_string())
+            # await message.channel.send("bruh")
+            await message.channel.send(file=discord.File("3bld.jpg"))
 
 client.run(token1.s)

@@ -130,7 +130,7 @@ class cube:
 			self.moves.append(ch)
 			self.moves.append(ch+"2")
 			self.moves.append(ch+"\'")
-
+		self.make_image_from_scramble()
 	def move_U(self):
 		for i in range(3):
 			temp = self.R[0][i]
@@ -416,10 +416,20 @@ class cube:
 			self.move_S2()
 		if move == "S'":
 			self.move_Sprime()
-			
+	
+	def make_image_from_scramble(self):
+		myDrawing.draw_face("U",self.U)
+		myDrawing.draw_face("L",self.L)
+		myDrawing.draw_face("R",self.R)
+		myDrawing.draw_face("B",self.B)
+		myDrawing.draw_face("F",self.F)
+		myDrawing.draw_face("D",self.D)
+		myDrawing.im.save('3bld.jpg', quality=100)
+
 	def apply_alg(self, alg):
 		for move in alg:
 			self.apply_move(move)
+		self.make_image_from_scramble()
 
 	def reverse_move(self, move):
 		s = move[0]
@@ -435,6 +445,7 @@ class cube:
 	def undo_alg(self, alg):
 		for i in range(len(alg)-1,-1,-1):
 			self.undo_move(alg[i])
+		self.make_image_from_scramble()
 
 	def generate_move(self):
 		move = random.randint(0,5)
@@ -446,14 +457,7 @@ class cube:
 			s+="\'"
 		return s
 
-	def make_image_from_scramble(self):
-		myDrawing.draw_face("U",self.U)
-		myDrawing.draw_face("L",self.L)
-		myDrawing.draw_face("R",self.R)
-		myDrawing.draw_face("B",self.B)
-		myDrawing.draw_face("F",self.F)
-		myDrawing.draw_face("D",self.D)
-		myDrawing.im.save('3bld.jpg', quality=100)
+	
 
 	def generate_scramble(self):
 		scrambleLength = random.randint(18,20)
@@ -482,11 +486,13 @@ class cube:
 		self.apply_alg(self.OPcornerSetups[ord(ch)-ord("a")])
 		self.apply_alg(self.OPcorner)
 		self.undo_alg(self.OPcornerSetups[ord(ch)-ord("a")])
+		self.make_image_from_scramble()
 
 	def apply_OPedgeswap(self, ch):
 		self.apply_alg(self.OPedgeSetups[ord(ch)-ord("A")])
 		self.apply_alg(self.Tperm)
 		self.undo_alg(self.OPedgeSetups[ord(ch)-ord("A")])
+		self.make_image_from_scramble()
 
 	def apply_blind_algs(self, s):
 		for ch in s:
@@ -496,6 +502,7 @@ class cube:
 				self.apply_OPcornerswap(ch)
 			elif ord(ch) >= ord("A") and ord(ch) <= ord("X"):
 				self.apply_OPedgeswap(ch)
+		self.make_image_from_scramble()
 
 	def solve(self):
 		self.U = [['W']*3 for i in range(3)]
@@ -504,6 +511,7 @@ class cube:
 		self.R = [['R']*3 for i in range(3)]
 		self.B = [['B']*3 for i in range(3)]
 		self.D = [['Y']*3 for i in range(3)]
+		self.make_image_from_scramble()
 
 	def to_string(self):		
 		s = "```"
@@ -529,4 +537,5 @@ class cube:
 			s+="\n"
 		s+="```"
 		return s
+
 

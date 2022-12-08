@@ -10,7 +10,7 @@ class drawing:
 	GREEN = (0,255,0)
 	BLUE = (0,0,255)
 	WHITE = (255,255,255)
-	im = Image.new('RGB', (1000, 600), (169, 169, 169))
+	im = Image.new('RGB', (faceLength*4+delta, faceLength*3+delta), (169, 169, 169))
 	draw = ImageDraw.Draw(im)
 	
 
@@ -18,9 +18,9 @@ class drawing:
 		pass
 
 	def draw_square(self, face, x, y, colour):
-		print("test")
-		originx = 200
-		originy = 200
+		#print("test")
+		originx = self.faceLength+self.delta
+		originy = self.faceLength+self.delta
 		if face == "F":
 			pass
 		elif face == "L":
@@ -33,8 +33,6 @@ class drawing:
 			originy-=self.faceLength
 		elif face == "D":
 			originy+=self.faceLength
-		else:
-			print("no face")
 		originx += y*(self.smallDelta+self.length)
 		originy += x*(self.smallDelta+self.length)
 		if colour == "R":
@@ -49,7 +47,7 @@ class drawing:
 			self.draw.rectangle((originx, originy, originx+self.length, originy+self.length), fill=self.YELLOW)
 		elif colour == "G":
 			self.draw.rectangle((originx, originy, originx+self.length, originy+self.length), fill=self.GREEN)
-		print(str(originx) + " " + str(originy))
+		#print(str(originx) + " " + str(originy))
 
 	def draw_face(self, face, arr):
 		for i in range(3):
