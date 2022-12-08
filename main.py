@@ -1,3 +1,4 @@
+from PIL import Image, ImageDraw
 import discord
 import cube
 import mytoken
@@ -14,6 +15,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    if message.author.id != token1.myID:
+        return
     s = message.content
     if len(s)>=1 and s[0]==";":
         s = s[1:]
@@ -22,6 +25,7 @@ async def on_message(message):
             cub.apply_move(s)
             await message.channel.send(cub.to_string())
         '''
+            
         if s == "Jperm":
             cub.apply_alg(cub.Jbperm)
         elif s == "Tperm":
@@ -32,6 +36,7 @@ async def on_message(message):
             cub.solve()
             await message.channel.send(cub.get_scramble())
             await message.channel.send(cub.to_string())
+            await message.channel.send(file=discord.File("3bld.jpg"))
         elif s == "print":
             await message.channel.send(cub.to_string())
         elif s == "solve":

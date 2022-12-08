@@ -1,4 +1,8 @@
+from PIL import Image, ImageDraw
 import random
+import drawing
+myDrawing = drawing.drawing()
+
 class cube:
 	U = [['W']*3 for i in range(3)]
 	L = [['O']*3 for i in range(3)]
@@ -442,6 +446,15 @@ class cube:
 			s+="\'"
 		return s
 
+	def make_image_from_scramble(self):
+		myDrawing.draw_face("U",self.U)
+		myDrawing.draw_face("L",self.L)
+		myDrawing.draw_face("R",self.R)
+		myDrawing.draw_face("B",self.B)
+		myDrawing.draw_face("F",self.F)
+		myDrawing.draw_face("D",self.D)
+		myDrawing.im.save('3bld.jpg', quality=100)
+
 	def generate_scramble(self):
 		scrambleLength = random.randint(18,20)
 		prev = "A"
@@ -462,6 +475,7 @@ class cube:
 			s+=move
 			s+=" "
 		s+="\n```"
+		self.make_image_from_scramble()
 		return s
 
 	def apply_OPcornerswap(self, ch):
